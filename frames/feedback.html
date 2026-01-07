@@ -1,0 +1,25 @@
+<html>
+  <body>
+    <h2>Feedback Form</h2>
+
+    <form method="post" action="example.com">
+      <label>
+        Name:<br>
+        <input type="text" name="name" required>
+      </label>
+      <br>
+      <label>
+        Phone Number:<br>
+        <input type="tel" name="number" pattern="[0-9]{10}" placeholder="10-digit number" required>
+      </label>
+      <br>
+      <label>
+        Comment:<br>
+        <textarea name="comment" rows="6" cols="40" required></textarea>
+      </label>
+      <br>
+      <input type="submit" value="Send"><br>
+      <input type="reset" value="Reset"><br>
+    </form>
+  </body>
+</html>
