@@ -1,0 +1,104 @@
+<html>
+<head>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;     
+      justify-content: center; 
+    }
+
+    form{
+      width: 500px;
+      background: #ffffff;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+
+    fieldset{
+      margin-bottom: 15px;
+      padding: 10px;
+    }
+
+    label{
+      display: block;
+      margin-top: 8px;
+    }
+
+    input, textarea{
+      width: 100%;
+      padding: 6px;
+      margin-top: 4px;
+      border: 1px solid #aaa;
+    }
+
+    button{
+      margin-top: 10px;
+      padding: 8px 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form>
+
+    <fieldset>
+      <legend>Participant Details</legend>
+
+      <label>
+        Full Name
+        <input type="text" name="fullname">
+      </label>
+
+      <label>
+        Email
+        <input type="email" name="email">
+      </label>
+
+      <label>
+        Phone
+        <input type="tel" name="phone">
+      </label>
+
+      <label>
+        Institution
+        <input type="text" name="institution">
+      </label>
+
+      <label>
+        Department / Year
+        <input type="text" name="department">
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Event Preferences</legend>
+      <label><input type="checkbox"> Workshop</label>
+      <label><input type="checkbox"> Paper Presentation</label>
+      <label><input type="checkbox"> Poster</label>
+      <label><input type="checkbox"> Hackathon</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Date & Other</legend>
+
+      <label>
+        Preferred Date
+        <input type="date">
+      </label>
+
+      <label>
+        Special Requirements
+        <textarea rows="3"></textarea>
+      </label>
+    </fieldset>
+
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>

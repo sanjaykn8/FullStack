@@ -1,0 +1,53 @@
+<html>
+<head>
+  <style>
+    .stack{
+      position: relative;
+      width: 420px;
+      height: 260px;
+    }
+
+    .stack img{
+      position: absolute;
+      width: 260px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    }
+
+    .stack img:nth-child(1){
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .stack img:nth-child(2){
+      top: 20px;
+      left: 30px;
+      z-index: 2;
+    }
+
+    .stack img:nth-child(3){
+      top: 40px;
+      left: 60px;
+      z-index: 3;
+    }
+
+    .stack img:nth-child(4){
+      top: 60px;
+      left: 90px;
+      z-index: 4;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stack">
+    <img src="pics/img1.jpg" alt="card1">
+    <img src="pics/img2.jpg" alt="card2">
+    <img src="pics/img3.jpg" alt="card3">
+    <img src="pics/img4.jpg" alt="card4">
+  </div>
+</body>
+</html>
