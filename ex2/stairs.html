@@ -1,28 +1,85 @@
+<!doctype html>
 <html>
 <head>
+  <meta charset="utf-8" />
+  <title>Stair Steps</title>
   <style>
-    body{font-family:system-ui, Arial; padding:20px; background:#f4f6f9;}
-    .stair{ position:relative; height:260px; width:760px; }
-    .step{
-      position:absolute;
-      width:260px; height:56px;
-      background:#fff; border-radius:8px;
-      box-shadow:0 6px 18px rgba(0,0,0,.08);
-      display:flex; align-items:center; padding:0 14px;
-      font-weight:600;
+    body{
+      background-color: chocolate;
+      margin: 0;
+      padding: 20px;
+      font-family: cursive;
     }
-    .step:nth-child(1){ left:0;   top:0;   background:#fffbf0; }
-    .step:nth-child(2){ left:120px; top:60px;  background:#f0fbff; }
-    .step:nth-child(3){ left:240px; top:120px; background:#f7fff4; }
-    .step:nth-child(4){ left:360px; top:180px; background:#fff6ff; }
+
+    .stair{
+      position: relative;
+      height: 520px;
+      width: 760px;
+    }
+
+    .step{
+      position: absolute;
+      width: 360px;
+      height: 100px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      gap: 12px;
+    }
+
+    .step img{
+      max-width: 240px;
+      max-height: 135px;
+      width: auto;
+      height: auto;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .step .text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .step:nth-child(1){ left: 0;   top: 0;    background:#fffbf0; }
+    .step:nth-child(2){ top: 140px; width: 600px;  background:#f0fbff; }
+    .step:nth-child(3){ top: 280px; width: 800px; background:#f7fff4; }
+    .step:nth-child(4){ top: 420px; width:950px; background:#fff6ff; }
   </style>
 </head>
 <body>
   <div class="stair">
-    <div class="step">Step 1</div>
-    <div class="step">Step 2</div>
-    <div class="step">Step 3</div>
-    <div class="step">Step 4</div>
+    <div class="step">
+      <img src="pics/eldenring.jpg">
+    </div>
+
+    <div class="step">
+      <div class="text">
+        <h3>Elden Ring</h3>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="text">
+        <div>    The game is directed by Hidetaka Miyazaki, with world-building contributions
+        from fantasy author George R. R. Martin. Players explore the Lands Between,
+        fighting powerful enemies and uncovering the secrets of the shattered Elden Ring.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="text">
+        <div><a href="https://en.bandainamcoent.eu/elden-ring/elden-ring" target="_blank">
+  https://en.bandainamcoent.eu/elden-ring/elden-ring
+  </a></div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
