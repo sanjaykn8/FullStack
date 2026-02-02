@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Drag and Drop</title>
+<style>
+li {
+  list-style: none;
+  padding: 8px;
+  border: 1px solid #333;
+  margin: 4px;
+  width: 120px;
+}
+</style>
+</head>
+<body>
+
+<h2>Drag & Drop List</h2>
+<ul>
+  <li draggable="true">One</li>
+  <li draggable="true">Two</li>
+  <li draggable="true">Three</li>
+</ul>
+
+<script>
+let dragged;
+document.addEventListener("dragstart", e => dragged = e.target);
+document.addEventListener("dragover", e => e.preventDefault());
+document.addEventListener("drop", e => {
+  if (e.target.tagName === "LI") {
+    e.target.parentNode.insertBefore(dragged, e.target);
+  }
+});
+</script>
+
+</body>
+</html>

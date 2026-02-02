@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dropdown Menu</title>
+<style>
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #eee;
+  min-width: 120px;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown-content a {
+  display: block;
+  padding: 8px;
+  text-decoration: none;
+}
+</style>
+</head>
+<body>
+
+<h2>Dropdown Menu</h2>
+<div class="dropdown">
+  <button>Menu</button>
+  <div class="dropdown-content">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Exit</a>
+  </div>
+</div>
+
+</body>
+</html>

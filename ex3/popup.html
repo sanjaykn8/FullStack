@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Popup Detection</title>
+<script>
+function testPopup() {
+  var win = window.open("", "_blank", "width=200,height=100");
+  if (!win) {
+    window.location.href = "error.html";
+  } else {
+    win.document.write("Popup Allowed");
+    win.close();
+  }
+}
+</script>
+</head>
+<body>
+
+<h2>Popup Block Test</h2>
+<button onclick="testPopup()">Test Popup</button>
+
+</body>
+</html>

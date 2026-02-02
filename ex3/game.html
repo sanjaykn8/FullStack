@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>15 Puzzle</title>
+<style>
+table { border-collapse: collapse; }
+td {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #333;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<h2>15 Puzzle</h2>
+<table id="board"></table>
+
+<script>
+let tiles = [...Array(15).keys()].map(x => x+1).concat("");
+tiles.sort(() => Math.random()-0.5);
+
+function draw() {
+  let html = "";
+  for (let i=0;i<16;i++) {
+    if (i%4==0) html += "<tr>";
+    html += `<td onclick="move(${i})">${tiles[i]}</td>`;
+    if (i%4==3) html += "</tr>";
+  }
+  document.getElementById("board").innerHTML = html;
+}
+
+function move(i) {
+  let e = tiles.indexOf("");
+  let valid = [e-1,e+1,e-4,e+4];
+  if (valid.includes(i)) {
+    [tiles[i], tiles[e]] = [tiles[e], tiles[i]];
+    draw();
+  }
+}
+
+draw();
+</script>
+
+</body>
+</html>
