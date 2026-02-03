@@ -1,29 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Hex Color Table</title>
-<style>
-table { border-collapse: collapse; }
-td {
-  border: 1px solid #333;
-  padding: 10px;
-  width: 100px;
-  text-align: center;
-}
-</style>
+  <title>Hex Color Table</title>
+
+  <style>
+    table { border-collapse: collapse; }
+    td {
+        font-size: larger;
+      border: 1px solid #333;
+      padding: 12px;
+      width: 90px;
+      text-align: center;
+      cursor: pointer;
+    }
+  </style>
+
+  <script>
+    function changeColor(cell, color) {
+      cell.style.backgroundColor = "black"
+      cell.style.color = color;
+    }
+
+    function resetColor(cell) {
+      cell.style.backgroundColor = "white"
+      cell.style.color = "black";
+    }
+  </script>
 </head>
+
 <body>
 
 <h2>Hex Color Table</h2>
+
 <table>
-<tr>
-  <td onmouseover="this.style.background='#FF0000'"
-      onmouseout="this.style.background='white'">#FF0000</td>
-  <td onmouseover="this.style.background='#00FF00'"
-      onmouseout="this.style.background='white'">#00FF00</td>
-  <td onmouseover="this.style.background='#0000FF'"
-      onmouseout="this.style.background='white'">#0000FF</td>
-</tr>
+  <tr>
+    <td onmouseover="changeColor(this,'#000000')" onmouseout="resetColor(this)">#000000</td>
+    <td onmouseover="changeColor(this,'#0000FF')" onmouseout="resetColor(this)">#0000FF</td>
+    <td onmouseover="changeColor(this,'#FF00FF')" onmouseout="resetColor(this)">#FF00FF</td>
+    <td onmouseover="changeColor(this,'#808080')" onmouseout="resetColor(this)">#808080</td>
+  </tr>
+  <tr>
+    <td onmouseover="changeColor(this,'#008000')" onmouseout="resetColor(this)">#008000</td>
+    <td onmouseover="changeColor(this,'#00FF00')" onmouseout="resetColor(this)">#00FF00</td>
+    <td onmouseover="changeColor(this,'#800000')" onmouseout="resetColor(this)">#800000</td>
+    <td onmouseover="changeColor(this,'#000080')" onmouseout="resetColor(this)">#000080</td>
+  </tr>
+  <tr>
+    <td onmouseover="changeColor(this,'#808000')" onmouseout="resetColor(this)">#808000</td>
+    <td onmouseover="changeColor(this,'#800080')" onmouseout="resetColor(this)">#800080</td>
+    <td onmouseover="changeColor(this,'#008080')" onmouseout="resetColor(this)">#008080</td>
+    <td onmouseover="changeColor(this,'#FF0000')" onmouseout="resetColor(this)">#FF0000</td>
+  </tr>
+  <tr>
+    <td onmouseover="changeColor(this,'#C0C0C0')" onmouseout="resetColor(this)">#C0C0C0</td>
+    <td onmouseover="changeColor(this,'#00FFFF')" onmouseout="resetColor(this)">#00FFFF</td>
+    <td onmouseover="changeColor(this,'#FFFF00')" onmouseout="resetColor(this)">#FFFF00</td>
+    <td onmouseover="changeColor(this,'#FFFFFF')" onmouseout="resetColor(this)">#FFFFFF</td>
+  </tr>
 </table>
 
 </body>

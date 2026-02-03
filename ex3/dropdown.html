@@ -1,38 +1,109 @@
-<!DOCTYPE html>
 <html>
 <head>
-<title>Dropdown Menu</title>
-<style>
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background: #eee;
-  min-width: 120px;
-}
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-.dropdown-content a {
-  display: block;
-  padding: 8px;
-  text-decoration: none;
-}
-</style>
-</head>
-<body>
 
-<h2>Dropdown Menu</h2>
-<div class="dropdown">
-  <button>Menu</button>
-  <div class="dropdown-content">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Exit</a>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  .menu-bar {
+    display: flex;
+  }
+
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown button {
+    padding: 8px 12px;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background: #f0f0f0;
+    min-width: 140px;
+  }
+
+  .dropdown-content a {
+    display: block;
+    padding: 8px;
+    text-decoration: none;
+    color: black;
+  }
+</style>
+
+<script>
+  function showMenu(id) {
+    document.getElementById(id).style.display = "block";
+  }
+
+  function hideMenu(id) {
+    document.getElementById(id).style.display = "none";
+  }
+
+  function hoverOn(el) {
+    el.style.backgroundColor = "#ddd";
+  }
+
+  function hoverOff(el) {
+    el.style.backgroundColor = "#f0f0f0";
+  }
+</script>
+</head>
+
+<body>
+<div class="menu-bar">
+
+  <div class="dropdown" onmouseover="showMenu('menu')" onmouseout="hideMenu('menu')">
+    <button>Menu</button>
+    <div class="dropdown-content" id="menu">
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">Home</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">About</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">Exit</a>
+    </div>
   </div>
+
+  <div class="dropdown" onmouseover="showMenu('gallery')" onmouseout="hideMenu('gallery')">
+    <button>Gallery</button>
+    <div class="dropdown-content" id="gallery">
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">2023</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">2024</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">2025</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">2026</a>
+    </div>
+  </div>
+
+  <div class="dropdown" onmouseover="showMenu('academics')" onmouseout="hideMenu('academics')">
+    <button>Academics</button>
+    <div class="dropdown-content" id="academics">
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">Admission</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">Alumni</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">Enquiry</a>
+    </div>
+  </div>
+
+  <div class="dropdown" onmouseover="showMenu('departments')" onmouseout="hideMenu('departments')">
+    <button>Departments</button>
+    <div class="dropdown-content" id="departments">
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">CSE</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">AIDS</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">EEE</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">ECE</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">MECH</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">CIVIL</a>
+    </div>
+  </div>
+
+  <div class="dropdown" onmouseover="showMenu('library')" onmouseout="hideMenu('library')">
+    <button>Library</button>
+    <div class="dropdown-content" id="library">
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">About Us</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">Donate</a>
+      <a href="#" onmouseover="hoverOn(this)" onmouseout="hoverOff(this)">360 View</a>
+    </div>
+  </div>
+
 </div>
 
 </body>

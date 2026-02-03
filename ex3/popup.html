@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Popup Detection</title>
-<script>
-function testPopup() {
-  var win = window.open("", "_blank", "width=200,height=100");
-  if (!win) {
-    window.location.href = "error.html";
-  } else {
-    win.document.write("Popup Allowed");
-    win.close();
-  }
-}
-</script>
+  <title>Popup Detection</title>
+
+  <script>
+    function testPopup() {
+      var popup = window.open(
+        "about:blank",
+        "popupTest",
+        "width=200,height=100"
+      );
+
+      if (popup == null || popup.closed || typeof popup.closed == "undefined") {
+        window.location.href = "error.html";
+      } else {
+        popup.document.write("<p>Popup Allowed</p>");
+        popup.close();
+      }
+    }
+  </script>
 </head>
+
 <body>
 
-<h2>Popup Block Test</h2>
-<button onclick="testPopup()">Test Popup</button>
+  <button onclick="testPopup()">Test Popup</button>
 
 </body>
 </html>

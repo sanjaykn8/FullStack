@@ -2,23 +2,75 @@
 <html>
 <head>
 <title>Form Validation</title>
+
 <script>
 function validate() {
-  let name = document.getElementById("name").value;
-  if (name === "") {
+  var name = document.getElementById("name").value;
+  var city = document.getElementById("city").value;
+  var dob = document.getElementById("dob").value;
+  var email = document.getElementById("email").value;
+  var number = document.getElementById("number").value;
+  var desc = document.getElementById("desc").value;
+
+  if (name == "") {
     alert("Name is required");
     return false;
   }
+
+  if (city == "") {
+    alert("City is required");
+    return false;
+  }
+
+  if (dob == "") {
+    alert("Date of Birth is required");
+    return false;
+  }
+
+  if (email == "") {
+    alert("Email is required");
+    return false;
+  }
+
+  if (number == "") {
+    alert("Phone number is required");
+    return false;
+  }
+
+  if (desc == "") {
+    alert("Description is required");
+    return false;
+  }
+
   return true;
 }
 </script>
 </head>
+
 <body>
 
 <h2>Form Validation</h2>
+
 <form onsubmit="return validate()">
-  Name: <input type="text" id="name"><br><br>
-  <input type="submit">
+  Name:
+  <input type="text" id="name"><br><br>
+
+  City:
+  <input type="text" id="city"><br><br>
+
+  Date of Birth:
+  <input type="date" id="dob"><br><br>
+
+  Email:
+  <input type="email" id="email"><br><br>
+
+  Phone Number:
+  <input type="text" id="number"><br><br>
+
+  Description:
+  <textarea id="desc"></textarea><br><br>
+
+  <input type="submit" value="Submit">
 </form>
 
 </body>

@@ -2,30 +2,42 @@
 <html>
 <head>
 <title>Drag and Drop</title>
+
 <style>
 li {
   list-style: none;
   padding: 8px;
   border: 1px solid #333;
   margin: 4px;
-  width: 120px;
+  width: 180px;
 }
 </style>
 </head>
+
 <body>
 
-<h2>Drag & Drop List</h2>
+<h2>Drag & Drop Premier League Teams</h2>
+
 <ul>
-  <li draggable="true">One</li>
-  <li draggable="true">Two</li>
-  <li draggable="true">Three</li>
+  <li draggable="true">Manchester City</li>
+  <li draggable="true">Arsenal</li>
+  <li draggable="true">Liverpool</li>
+  <li draggable="true">Manchester United</li>
+  <li draggable="true">Chelsea</li>
 </ul>
 
 <script>
 let dragged;
-document.addEventListener("dragstart", e => dragged = e.target);
-document.addEventListener("dragover", e => e.preventDefault());
-document.addEventListener("drop", e => {
+
+document.addEventListener("dragstart", function(e) {
+  dragged = e.target;
+});
+
+document.addEventListener("dragover", function(e) {
+  e.preventDefault();
+});
+
+document.addEventListener("drop", function(e) {
   if (e.target.tagName === "LI") {
     e.target.parentNode.insertBefore(dragged, e.target);
   }
