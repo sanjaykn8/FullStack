@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload Text File</title>
+</head>
+<body>
+  <h2>Upload Any .txt File</h2>
+
+  <input type="file" id="fileInput" accept=".txt" />
+  <button onclick="uploadFile()">Upload</button>
+
+  <p id="status"></p>
+
+  <script>
+    async function uploadFile() {
+      const file = document.getElementById('fileInput').files[0];
+
+      if (!file) {
+        alert("Please select a .txt file");
+        return;
+      }
+
+      // Check extension instead of filename
+      if (!file.name.toLowerCase().endsWith(".txt")) {
+        alert("Only .txt files are allowed");
+        return;
+      }
+
+      document.getElementById("status").innerText = "Uploading...";
+
+      try {
+        const response = await fetch('/upload', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain'
+          },
+          body: file
+        });
+
+        const text = await response.text();
+        document.getElementById("status").innerText = text;
+      } catch (err) {
+        document.getElementById("status").innerText = "Upload failed";
+      }
+    }
+  </script>
+</body>
+</html>
