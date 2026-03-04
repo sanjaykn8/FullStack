@@ -8,37 +8,61 @@ const PORT = 3002;
 const DATA_FILE = path.join(__dirname, 'submissions.txt');
 
 app.get('/', (req, res) => {
-  // read file asynchronously
   fs.readFile(DATA_FILE, 'utf8', (err, data) => {
     if (err) {
       if (err.code === 'ENOENT') {
-        return res.type('html').send('<h3>No submissions yet.</h3>');
+        return res.send('<h3>No submissions yet.</h3>');
       }
-      console.error('Read error:', err);
-      return res.status(500).send('Failed to read data.');
+      return res.status(500).send('Error reading file.');
     }
 
-    // Render simple HTML table from lines
-    const rows = data
-      .trim()
-      .split('\n')
-      .filter(Boolean)
-      .map(line => {
-        // format: ISO | name | message
-        const parts = line.split(' | ').map(s => escapeHtml(s));
-        return `<tr><td>${parts[0]||''}</td><td>${parts[1]||''}</td><td>${parts[2]||''}</td></tr>`;
-      })
-      .join('\n');
+    // Split blocks by separator
+    const blocks = data.split('------------------------------')
+                       .map(b => b.trim())
+                       .filter(b => b.length > 0);
 
-    res.type('html').send(`
-      <h2>Submissions</h2>
-      <table border="1" cellpadding="6" cellspacing="0">
-        <thead><tr><th>Time</th><th>Name</th><th>Message</th></tr></thead>
+    const rows = blocks.map(block => {
+      const lines = block.split('\n');
+
+      const obj = {};
+      lines.forEach(line => {
+        const [key, ...rest] = line.split(':');
+        if (key && rest.length) {
+          obj[key.trim()] = rest.join(':').trim();
+        }
+      });
+
+      return `
+        <tr>
+          <td>${escapeHtml(obj.Time || '')}</td>
+          <td>${escapeHtml(obj.Name || '')}</td>
+          <td>${escapeHtml(obj.Gender || '')}</td>
+          <td>${escapeHtml(obj.DOB || '')}</td>
+          <td>${escapeHtml(obj.Email || '')}</td>
+          <td>${escapeHtml(obj.Phone || '')}</td>
+          <td>${escapeHtml(obj.Description || '')}</td>
+        </tr>
+      `;
+    }).join('');
+
+    res.send(`
+      <h2>Stored Submissions</h2>
+      <table border="1" cellpadding="6">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>DOB</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Description</th>
+          </tr>
+        </thead>
         <tbody>
-          ${rows || '<tr><td colspan="3">No entries</td></tr>'}
+          ${rows || '<tr><td colspan="7">No Data</td></tr>'}
         </tbody>
       </table>
-      <p><a href="/">Refresh</a></p>
     `);
   });
 });
@@ -52,5 +76,5 @@ function escapeHtml(s) {
 }
 
 app.listen(PORT, () => {
-  console.log(`App2 listening on http://localhost:${PORT}/`);
+  console.log(`App2 running at http://localhost:${PORT}`);
 });

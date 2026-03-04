@@ -1,48 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Upload Text File</title>
+  <meta charset="utf-8" />
+  <title>Upload / Download Text File (streams)</title>
 </head>
 <body>
-  <h2>Upload Any .txt File</h2>
-
+  <h2>Upload Any .txt File (streamed)</h2>
   <input type="file" id="fileInput" accept=".txt" />
-  <button onclick="uploadFile()">Upload</button>
+  <button id="uploadBtn">Upload</button>
+  <p id="uploadStatus"></p>
 
-  <p id="status"></p>
+  <hr>
+
+  <h2>Download from server (readable stream)</h2>
+  <!-- simple download link (browser will stream while saving) -->
+  <a id="downloadLink" href="/download" download>Download latest text file</a>
+  <button id="streamShowBtn">Stream & show file (progress)</button>
+  <p id="downloadStatus"></p>
+  <pre id="fileContents" style="white-space:pre-wrap; border:1px solid #ddd; padding:8px; max-height:300px; overflow:auto;"></pre>
 
   <script>
-    async function uploadFile() {
+    // Upload: client sends file as request body (fetch streams file)
+    document.getElementById('uploadBtn').addEventListener('click', async () => {
       const file = document.getElementById('fileInput').files[0];
+      const status = document.getElementById('uploadStatus');
+      status.textContent = '';
 
       if (!file) {
-        alert("Please select a .txt file");
+        alert('Please select a .txt file');
         return;
       }
-
-      // Check extension instead of filename
-      if (!file.name.toLowerCase().endsWith(".txt")) {
-        alert("Only .txt files are allowed");
+      if (!file.name.toLowerCase().endsWith('.txt')) {
+        alert('Only .txt files allowed');
         return;
       }
-
-      document.getElementById("status").innerText = "Uploading...";
 
       try {
-        const response = await fetch('/upload', {
+        status.textContent = 'Uploading...';
+        const resp = await fetch('/upload', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain'
-          },
-          body: file
+          headers: { 'Content-Type': 'text/plain' },
+          body: file // fetch will stream the file contents
         });
-
-        const text = await response.text();
-        document.getElementById("status").innerText = text;
+        const text = await resp.text();
+        status.textContent = text;
       } catch (err) {
-        document.getElementById("status").innerText = "Upload failed";
+        status.textContent = 'Upload failed: ' + (err.message || err);
       }
-    }
+    });
+
+    // Download & display using readable stream API to show progress and avoid buffering in one go
+    document.getElementById('streamShowBtn').addEventListener('click', async () => {
+      const out = document.getElementById('fileContents');
+      const status = document.getElementById('downloadStatus');
+      out.textContent = '';
+      status.textContent = '';
+
+      try {
+        const resp = await fetch('/download');
+        if (!resp.ok) {
+          status.textContent = 'Download error: ' + resp.status + ' ' + resp.statusText;
+          return;
+        }
+
+        // If server supplies Content-Length, we can show progress
+        const contentLength = resp.headers.get('Content-Length');
+        let received = 0;
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+
+        status.textContent = contentLength ? `Downloading 0 / ${contentLength} bytes` : 'Downloading...';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          received += value.length;
+          const chunkText = decoder.decode(value, { stream: true });
+          out.textContent += chunkText;
+          status.textContent = contentLength
+            ? `Downloading ${received} / ${contentLength} bytes`
+            : `Downloaded ${received} bytes`;
+        }
+
+        // finalize remaining decoding
+        out.textContent += decoder.decode(); 
+        status.textContent = 'Download complete';
+      } catch (err) {
+        status.textContent = 'Stream read failed: ' + (err.message || err);
+      }
+    });
   </script>
 </body>
 </html>

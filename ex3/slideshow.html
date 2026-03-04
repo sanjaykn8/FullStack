@@ -6,14 +6,14 @@
 <body>
 
 <h2>Slideshow</h2>
-<img id="slide" src="../ex2/pics/img1.jpg" width="300"><br><br>
+<img id="slide" src="../ex2/pics/img0.jpg" width="300"><br><br>
 <button onclick="prev()">Previous</button>
 <button onclick="next()">Next</button>
 
 <script>
 let i = 1;
 function next() {
-  i = (i % 4) + 1;
+  i = (i  + 1) % 4;
   document.getElementById("slide").src = "../ex2/pics/img" + i + ".jpg";
 }
 function prev() {
