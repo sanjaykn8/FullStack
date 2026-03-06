@@ -2,7 +2,7 @@ import { URL } from "url";
 
 const u = new URL("https://google.com");
 
-console.log("Input:", input);
+console.log("Input:", u);
 console.log("Protocol:", u.protocol);
 console.log("Username:", u.username);
 console.log("Password:", u.password);
