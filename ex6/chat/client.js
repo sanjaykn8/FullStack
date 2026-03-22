@@ -1,6 +1,3 @@
-// chat_client.js
-// Usage: node chat_client.js [host] [port]
-// Default host=localhost port=8080
 const net = require('net');
 const readline = require('readline');
 

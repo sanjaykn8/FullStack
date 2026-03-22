@@ -1,5 +1,3 @@
-// chat_server.js
-// Usage: node chat_server.js
 const net = require('net');
 
 const PORT = 8080;

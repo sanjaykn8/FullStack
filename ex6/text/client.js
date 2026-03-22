@@ -1,5 +1,3 @@
-// http_client.js
-// Usage: node http_client.js "your message here"
 const http = require('http');
 
 const message = process.argv.slice(2).join(' ') || 'Hello from http_client';

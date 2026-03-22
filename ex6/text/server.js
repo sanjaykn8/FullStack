@@ -1,5 +1,3 @@
-// http_server.js
-// Usage: node http_server.js
 const http = require('http');
 
 const PORT = 8081;
