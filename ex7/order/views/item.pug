@@ -1,0 +1,39 @@
+html
+  head
+    title Online Order App
+    link(rel='stylesheet', href='/style.css')
+  body
+    .container
+      h1 Online Order System
+      p.subtitle Demonstrates GET and POST routing with Express.js and Pug.
+
+      if message
+        .alert= message
+
+      h2 Item List
+      .grid
+        each item in items
+          .card
+            h3= item.name
+            p Price: ₹#{item.price}
+
+            form(method='POST', action='/cart')
+              input(type='hidden', name='itemId', value=item.id)
+              label(for='qty-' + item.id) Quantity
+              input(id='qty-' + item.id, type='number', name='qty', min='1', value='1', required=true)
+              button.btn(type='submit') Add to Cart
+
+      .cart-card
+        h2 Cart
+        if cart.length === 0
+          p Cart is empty.
+        else
+          ul
+            each c in cart
+              li #{c.name} × #{c.qty} = ₹#{c.subtotal}
+          p.total Total: ₹#{cartTotal}
+
+        form(method='POST', action='/order')
+          label(for='customerName') Customer Name
+          input#customerName(type='text', name='customerName', required=true)
+          button.btn(type='submit') Order Items

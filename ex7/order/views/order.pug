@@ -1,0 +1,18 @@
+html
+  head
+    title Order Confirmation
+    link(rel='stylesheet', href='/style.css')
+  body
+    .container
+      h1 Order Confirmed
+      .result-card
+        p Order ID: #{order.orderId}
+        p Customer Name: #{order.customerName}
+        p Total Amount: ₹#{order.total}
+
+        h2 Ordered Items
+        ul
+          each item in order.items
+            li #{item.name} × #{item.qty} = ₹#{item.subtotal}
+
+      a.link(href='/items') Place Another Order

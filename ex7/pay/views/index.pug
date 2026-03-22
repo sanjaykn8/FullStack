@@ -1,0 +1,65 @@
+html
+  head
+    title Payroll Calculator
+    link(rel='stylesheet', href='/style.css')
+  body
+    .container
+      h1 Employee Payroll Calculator
+      p.subtitle Enter employee details and calculate gross and net pay.
+
+      if error
+        .alert= error
+
+      form.form(method='POST', action='/payroll')
+        .row
+          label(for='employeeName') Employee Name
+          input#employeeName(type='text', name='employeeName', required=true, value=(form.employeeName || ''))
+
+        .row
+          label(for='eid') EID
+          input#eid(type='text', name='eid', required=true, value=(form.eid || ''))
+
+        .row
+          label(for='designation') Designation
+          input#designation(type='text', name='designation', required=true, value=(form.designation || ''))
+
+        .row
+          label(for='basicPay') Basic Pay
+          input#basicPay(type='number', name='basicPay', min='0', step='0.01', required=true, value=(form.basicPay || ''))
+
+        button.btn(type='submit') Calculate Pay
+
+      if result
+        .result-card
+          h2 Payroll Details
+          .details-grid
+            .detail
+              strong Employee Name
+              span= result.employeeName
+            .detail
+              strong EID
+              span= result.eid
+            .detail
+              strong Designation
+              span= result.designation
+            .detail
+              strong Basic Pay
+              span ₹#{result.basicPay}
+            .detail
+              strong HRA (20%)
+              span ₹#{result.hra}
+            .detail
+              strong DA (10%)
+              span ₹#{result.da}
+            .detail
+              strong TA (5%)
+              span ₹#{result.ta}
+            .detail
+              strong PF (8%)
+              span ₹#{result.pf}
+            .detail
+              strong Gross Pay
+              span ₹#{result.grossPay}
+            .detail
+              strong Net Pay
+              span ₹#{result.netPay}
