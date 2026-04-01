@@ -1,0 +1,7 @@
+extends layout
+block content
+  h2 Edit Contact
+  form(method="POST")
+    input(type="text", name="name", value=contact.name)
+    textarea(name="address")= contact.address
+    button(type="submit") Update

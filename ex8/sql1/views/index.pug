@@ -1,0 +1,19 @@
+extends layout
+block content
+  h1 Contacts
+  a(href="/add") Add Contact
+  table(border="1")
+    tr
+      th Name
+      th Phone
+      th Address
+      th Actions
+    each c in contacts
+      tr
+        td= c.name
+        td= c.phone
+        td= c.address
+        td
+          a(href=`/edit/${c.phone}`) Edit
+          |  |
+          a(href=`/delete/${c.phone}`) Delete

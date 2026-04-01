@@ -16,9 +16,9 @@ async function sendMail() {
 
   const info = await transporter.sendMail({
     from: `"Eren Yeager" <${process.env.EMAIL_USER}>`,
-    to: "nisanir8_bai27@mepcoeng.ac.in",
-    subject: "New test",
-    text: "I have sent this as sample",
+    to: "ang_jenefa@mepcoeng.ac.in",
+    subject: "Output Email",
+    text: "This is a mail sent by Sanjay KN for ex4 - 1 output",
   });
 
   console.log("Message sent:", info.messageId);

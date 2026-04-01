@@ -1,0 +1,7 @@
+extends layout
+block content
+  h2 Login
+  form(method="POST", action="/login")
+    input(type="email", name="email", placeholder="Email", required)
+    input(type="password", name="password", placeholder="Password", required)
+    button(type="submit") Login
