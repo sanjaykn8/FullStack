@@ -1,26 +1,33 @@
 extends layout
 block content
-  h2 Railway Reservation
+  if error
+    .alert.alert-error= error
 
-  h3 Book Ticket
-  form(method="POST", action="/book")
-    input(type="text", name="pnr", placeholder="PNR", required)
-    input(type="text", name="source", placeholder="Source", required)
-    input(type="text", name="dest", placeholder="Destination", required)
-    input(type="date", name="date", required)
-    input(type="text", name="name", placeholder="Name", required)
-    button(type="submit") Book
+  .card
+    h2 📋 Book Ticket
+    form(method="POST", action="/book")
+      .form-grid
+        input(type="text", name="pnr", placeholder="PNR Number", required)
+        input(type="text", name="name", placeholder="Passenger Name", required)
+        input(type="text", name="source", placeholder="Source Station", required)
+        input(type="text", name="dest", placeholder="Destination", required)
+        input(type="date", name="date", required)
+      br
+      button.btn.btn-primary(type="submit") 🎫 Book Ticket
 
-  h3 Cancel Ticket
-  form(method="POST", action="/cancel")
-    input(type="text", name="pnr", placeholder="PNR")
-    button(type="submit") Cancel
+  .card
+    h2 ❌ Cancel Ticket
+    form(method="POST", action="/cancel")
+      .form-grid
+        input(type="text", name="pnr", placeholder="PNR Number", required)
+      br
+      button.btn.btn-danger(type="submit") Cancel Ticket
 
-  h3 Update Destination
-  form(method="POST", action="/update")
-    input(type="text", name="pnr", placeholder="PNR")
-    input(type="text", name="dest", placeholder="New Destination")
-    button(type="submit") Update
-
-  br
-  a(href="/chart") View Chart
+  .card
+    h2 ✏️ Update Destination
+    form(method="POST", action="/update")
+      .form-grid
+        input(type="text", name="pnr", placeholder="PNR Number", required)
+        input(type="text", name="dest", placeholder="New Destination", required)
+      br
+      button.btn.btn-warning(type="submit") Update

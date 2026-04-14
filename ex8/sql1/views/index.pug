@@ -1,19 +1,26 @@
 extends layout
 block content
-  h1 Contacts
-  a(href="/add") Add Contact
-  table(border="1")
-    tr
-      th Name
-      th Phone
-      th Address
-      th Actions
-    each c in contacts
-      tr
-        td= c.name
-        td= c.phone
-        td= c.address
-        td
-          a(href=`/edit/${c.phone}`) Edit
-          |  |
-          a(href=`/delete/${c.phone}`) Delete
+  .card
+    h1 Contacts
+    if contacts.length === 0
+      .empty-state
+        p(style="font-size:2rem; margin-bottom:8px;") 📭
+        p No contacts yet. Add one!
+    else
+      table
+        thead
+          tr
+            th Name
+            th Phone
+            th Address
+            th Actions
+        tbody
+          each c in contacts
+            tr
+              td= c.name
+              td= c.phone
+              td= c.address || '—'
+              td(style="white-space:nowrap;")
+                a.btn.btn-edit(href=`/edit/${c.phone}`) Edit
+                | &nbsp;
+                a.btn.btn-delete(href=`/delete/${c.phone}`, onclick="return confirm('Delete this contact?')") Delete

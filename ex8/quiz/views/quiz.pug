@@ -1,15 +1,13 @@
 extends layout
 block content
-  h2 Quiz
-  form(method="POST", action="/submit")
-    each q in questions
-      p #{q.question}
-      input(type="radio", name=q.id, value="1") #{q.option1}
-      br
-      input(type="radio", name=q.id, value="2") #{q.option2}
-      br
-      input(type="radio", name=q.id, value="3") #{q.option3}
-      br
-      input(type="radio", name=q.id, value="4") #{q.option4}
-      hr
-    button(type="submit") Submit
+  .card
+    h2 Quiz — #{category.charAt(0).toUpperCase() + category.slice(1)}
+    form(method="POST", action="/submit")
+      each q, i in questions
+        div(style="margin-bottom:28px; padding-bottom:20px; border-bottom: 1px solid #f0f0f0;")
+          p(style="font-weight:600; margin-bottom:12px; color:#1f2937;") #{i+1}. #{q.question}
+          each opt, j in [q.option1, q.option2, q.option3, q.option4]
+            label(style="display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:6px; cursor:pointer; margin-bottom:6px; border:1px solid #e5e7eb; transition:.2s;")
+              input(type="radio", name=String(q.id), value=String(j+1), style="accent-color:#4f46e5;")
+              span= opt
+      button.btn.btn-primary(type="submit" style="width:auto; padding:12px 32px;") Submit Quiz

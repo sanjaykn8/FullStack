@@ -1,6 +1,8 @@
 extends layout
 block content
-  h2 Select Category
-  a(href="/quiz/science") Science
-  br
-  a(href="/quiz/math") Math
+  .card
+    h2 Select a Category
+    p(style="color:#666; margin-bottom:24px") Choose a topic to start a 5-question quiz.
+    div(style="display:flex; gap:16px; flex-wrap:wrap;")
+      a.btn.btn-secondary(href="/quiz/gk" style="padding:20px 36px; font-size:1.1rem;") 🔬 Science
+      a.btn.btn-secondary(href="/quiz/math" style="padding:20px 36px; font-size:1.1rem;") 📐 Math

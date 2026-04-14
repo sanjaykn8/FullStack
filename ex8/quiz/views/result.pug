@@ -1,3 +1,8 @@
 extends layout
 block content
-  h2 Final Score: #{score}
+  .card(style="text-align:center;")
+    div(style="font-size:4rem; margin-bottom:16px;") 🎉
+    h2 Quiz Complete!
+    p(style="font-size:2.5rem; font-weight:700; color:#4f46e5; margin:16px 0;") #{score} / #{total}
+    p(style="color:#6b7280; margin-bottom:28px;") Points scored (10 per correct, −0.25 per wrong answer)
+    a.btn.btn-secondary(href="/categories") Try Another Quiz

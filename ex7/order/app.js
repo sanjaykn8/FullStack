@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const PORT = 3001;
+const PORT = 3105;
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -11,12 +11,43 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const items = [
-  { id: 1, name: 'Burger', price: 120 },
-  { id: 2, name: 'Pizza', price: 250 },
-  { id: 3, name: 'Sandwich', price: 90 },
-  { id: 4, name: 'Pasta', price: 180 },
-  { id: 5, name: 'Juice', price: 60 }
-];
+  {
+    "id": 1,
+    "name": "Burger",
+    "price": 120,
+    "image": "burger.jpg",
+    "addtocart": "/cart"
+  },
+  {
+    "id": 2,
+    "name": "Pizza",
+    "price": 250,
+    "image": "pizza.jpg",
+    "addtocart": "/cart"
+  },
+  {
+    "id": 3,
+    "name": "Sandwich",
+    "price": 90,
+    "image": "sandwich.jpg",
+    "addtocart": "/cart"
+  },
+  {
+    "id": 4,
+    "name": "Pasta",
+    "price": 180,
+    "image": "pasta.jpg",
+    "addtocart": "/cart"
+  },
+  {
+    "id": 5,
+    "name": "Juice",
+    "price": 60,
+    "image": "juice.jpg",
+    "addtocart": "/cart"
+  }
+]
+
 
 let cart = [];
 

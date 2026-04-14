@@ -1,7 +1,13 @@
 extends layout
 block content
-  h2 Edit Contact
-  form(method="POST")
-    input(type="text", name="name", value=contact.name)
-    textarea(name="address")= contact.address
-    button(type="submit") Update
+  .card
+    h2 Edit Contact
+    p(style="color:#6b7280; margin-bottom:20px; font-size:0.9rem;") Phone: #{contact.phone}
+    form(method="POST")
+      label Name
+      input(type="text", name="name", value=contact.name, required)
+      label Address
+      textarea(name="address")= contact.address
+      div(style="display:flex; gap:12px;")
+        button.btn.btn-primary(type="submit") Update
+        a.btn(href="/" style="background:#f3f4f6; color:#374151;") Cancel

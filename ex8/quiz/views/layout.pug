@@ -2,5 +2,33 @@ doctype html
 html
   head
     title Quiz System
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    style.
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f7fa; color: #333; min-height: 100vh; }
+      header { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
+      header h1 { font-size: 1.4rem; }
+      header a { color: rgba(255,255,255,.8); text-decoration: none; font-size: 0.9rem; }
+      header a:hover { color: #fff; }
+      main { max-width: 700px; margin: 40px auto; padding: 0 20px 60px; }
+      .card { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.08); padding: 32px 36px; }
+      h2 { font-size: 1.3rem; color: #4f46e5; margin-bottom: 24px; }
+      label { display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 6px; }
+      input[type="email"], input[type="password"], input[type="text"] {
+        width: 100%; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 8px;
+        font-size: 0.95rem; outline: none; transition: border .2s; margin-bottom: 16px;
+      }
+      input:focus { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,.12); }
+      .btn { display: inline-block; padding: 10px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 600; transition: all .2s; text-decoration: none; }
+      .btn-primary { background: #4f46e5; color: #fff; width: 100%; text-align: center; }
+      .btn-primary:hover { background: #4338ca; }
+      .btn-secondary { background: #f3f4f6; color: #374151; }
+      .btn-secondary:hover { background: #e5e7eb; }
+      .alert-error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.9rem; }
   body
-    block content
+    header
+      h1 🧠 Quiz System
+      if locals.user
+        a(href="/logout") Logout (#{user.email})
+    main
+      block content

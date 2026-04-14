@@ -14,10 +14,13 @@ html
       .grid
         each item in items
           .card
+            //- Added image tag using the name from your JSON
+            img(src=`/${item.name}.jpg`, alt=item.name, style="width:100%; height:auto; border-radius:8px;")
             h3= item.name
             p Price: ₹#{item.price}
 
-            form(method='POST', action='/cart')
+            //- Action updated to use item.addtocart from JSON
+            form(method='POST', action=item.addtocart)
               input(type='hidden', name='itemId', value=item.id)
               label(for='qty-' + item.id) Quantity
               input(id='qty-' + item.id, type='number', name='qty', min='1', value='1', required=true)
