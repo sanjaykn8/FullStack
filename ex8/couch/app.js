@@ -69,4 +69,4 @@ app.post('/update', async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log('Railway system running on http://localhost:3000'));
+app.listen(3002, () => console.log('Railway system running on http://localhost:3002'));

@@ -52,4 +52,4 @@ app.get('/delete/:phone', async (req, res) => {
   res.redirect('/');
 });
 
-app.listen(3000, () => console.log('Running on http://localhost:3000'));
+app.listen(3001, () => console.log('Running on http://localhost:3001'));

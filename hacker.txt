@@ -1,0 +1,360 @@
+item list
+import React, { useState } from "react";
+
+function ItemListManager() {
+  const [items, setItems] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleAddItem = () => {
+    const trimmed = inputValue.trim();
+    if (!trimmed) return;
+
+    setItems((prev) => [...prev, trimmed]);
+    setInputValue("");
+  };
+
+  return (
+    <div style={{ margin: "20px", fontFamily: "Arial, sans-serif" }}>
+      <h1>Item List Manager</h1>
+
+      <input
+        type="text"
+        data-testid="input-field"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="Enter an item"
+        style={{ padding: "8px", marginRight: "10px", fontSize: "16px" }}
+      />
+
+      <button
+        data-testid="add-button"
+        onClick={handleAddItem}
+        style={{
+          padding: "8px 12px",
+          backgroundColor: "#007BFF",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+        }}
+      >
+        Add Item
+      </button>
+
+      <ul style={{ marginTop: "20px", listStyleType: "none", padding: 0 }}>
+        {items.map((item, index) => (
+          <li
+            key={index}
+            data-testid="list-item"
+            style={{
+              padding: "8px",
+              backgroundColor: "#f9f9f9",
+              marginBottom: "5px",
+              borderRadius: "4px",
+              boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default ItemListManager;
+
+slideshow
+
+import React, { useState } from 'react'
+
+function Slide({ title, text }) {
+  return (
+    <div id="slide" className="card text-center">
+      <h1 data-testid="title">{title}</h1>
+      <p data-testid="text">{text}</p>
+    </div>
+  )
+}
+
+function Slides({ slides }) {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const { title, text } = slides[currentSlide]
+
+  return (
+    <div>
+      <div id="navigation" className="text-center">
+        <button
+          data-testid="button-restart"
+          className="small outlined"
+          disabled={currentSlide === 0}
+          onClick={() => setCurrentSlide(0)}
+        >
+          Restart
+        </button>
+        <button
+          data-testid="button-prev"
+          className="small"
+          disabled={currentSlide === 0}
+          onClick={() => setCurrentSlide(currentSlide - 1)}
+        >
+          Prev
+        </button>
+        <button
+          data-testid="button-next"
+          className="small"
+          disabled={currentSlide === slides.length - 1}
+          onClick={() => setCurrentSlide(currentSlide + 1)}
+        >
+          Next
+        </button>
+        <Slide title={title} text={text} />
+      </div>
+    </div>
+  )
+}
+
+export default Slides
+
+crypto rank
+
+import React from "react";
+import Table from "./Table";
+
+const Consts = {
+  EmptyError: "Amount cannot be empty",
+  LessAmountError: "Amount cannot be less than $0.01",
+  OverAmountError: "Amount cannot exceed the available balance",
+  MinimumAmount: 0.01,
+  AvailableBalance: 17042.67,
+}
+
+function Main() {
+  const [amount, setAmount] = React.useState(null);
+  const [errorMsg, setErrorMsg] = React.useState(undefined);
+  const handleInputAmount = (e) => {
+    // if invalid, show an error message
+    setErrorMsg("");
+    const inputedAmount = e.currentTarget.value;
+    if(!inputedAmount){
+      setErrorMsg(Consts.EmptyError);
+    } else if(inputedAmount <= Consts.MinimumAmount){
+      setErrorMsg(Consts.LessAmountError);
+    } else if(inputedAmount > Consts.AvailableBalance) {
+      setErrorMsg(Consts.OverAmountError);
+    } else {
+      setAmount(inputedAmount);
+    }
+  };
+
+  return (
+    <div className="layout-column align-items-center mx-auto">
+      <h1>CryptoRank Exchange</h1>
+      <section>
+        <div className="card-text layout-column align-items-center mt-12 px-8 flex text-center">
+          <label>
+            I want to exchange $ 
+              <input 
+                className="w-10"
+                data-testid="amount-input"
+                required
+                type="number"
+                placeholder="USD"
+                onChange={(e) => handleInputAmount(e)}
+                value={amount} 
+              /> of my $
+            <span>{Consts.AvailableBalance}</span>:
+          </label>
+          {
+            errorMsg &&
+              <p 
+                data-testid="error"
+                className="form-hint error-text mt-3 pl-0 ml-0"
+              >
+              {errorMsg}
+            </p>
+          }
+          {/* The errors can be Amount cannot be empty /be less than $0.01/exceed the available balance */}
+        </div>
+      </section>
+      <Table 
+        amount={amount}
+        isInvalid={!!errorMsg}
+      />
+    </div>
+  );
+}
+
+export default Main;
+
+import React from "react";
+import { cryptocurrencyList } from "../cryptocurrency-list";
+
+const Consts = {
+  InValidAmountError: "n/a",
+  CoinDigits: 8
+}
+
+function Table({amount, isInvalid}) {  
+  return (
+    <div className="card card-text mt-10 mx-4">
+      <table className="mb-0">
+        <thead>
+          <tr>
+            <th>Cryptocurrency</th>
+            <th>Exchange Rate</th>
+            <th>Number of Coins</th>
+          </tr>
+        </thead>
+        <tbody data-testid="exchange-data">
+          {
+            cryptocurrencyList.map((crypt, i) => {
+              // Amount * Exchange Rate ( 8 decimal places )
+              const numberOfCoin = (amount * crypt.rate).toFixed(Consts.CoinDigits);
+              return (
+                <tr
+                  key={i}
+                >
+                  <td>{crypt.name}</td>
+                  <td>1 USD = {crypt.rate} {crypt.code}</td>
+                  <td>{
+                    isInvalid 
+                      ? Consts.InValidAmountError
+                      : numberOfCoin
+                    }</td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default Table;
+
+word omitter
+
+import React, { useState } from "react";
+
+const OMITTED_WORDS = ["a", "the", "and", "or", "but"];
+
+function WordOmitter() {
+  const [inputText, setInputText] = useState("");
+  const [omitWords, setOmitWords] = useState(true);
+
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+  };
+
+  const toggleOmitWords = () => {
+    setOmitWords(!omitWords);
+  };
+
+  const clearFields = () => {
+    // TODO: Add your changes here
+    setInputText("");
+  };
+  const getProcessedText = () => {
+    // TODO: Add your changes here
+    let results = [];
+    if (omitWords) {
+     return inputText.split(" ").filter((prev) => !OMITTED_WORDS.includes(prev)).join(" ");
+    } else {
+      return inputText;
+    }
+  };
+
+  return (
+    <div className="omitter-wrapper">
+      <textarea
+        placeholder="Type here..."
+        value={inputText}
+        onChange={handleInputChange}
+        data-testid="input-area"
+      />
+      <div>
+        <button onClick={toggleOmitWords} data-testid="action-btn">
+          {omitWords ? "Show All Words" : "Omit Words"}
+        </button>
+        <button onClick={clearFields} data-testid="clear-btn">
+          Clear
+        </button>
+      </div>
+      <div>
+        <h2>Output:</h2>
+        <p data-testid="output-text">{getProcessedText()}</p>
+      </div>
+    </div>
+  );
+}
+
+export { WordOmitter };
+
+article sorting
+
+import React, { useState } from "react";
+
+function Articles({ articles }) {
+  return (
+    <div className="card w-50 mx-auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Upvotes</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {articles.map((article, index) => (
+            <tr data-testid="article" key={index}>
+              <td data-testid="article-title">{article.title}</td>
+              <td data-testid="article-upvotes">{article.upvotes}</td>
+              <td data-testid="article-date">{article.date}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function App({ articles }) {
+  const [sortType, setSortType] = useState("top");
+
+  const getSortedArticles = () => {
+    let sorted = [...articles];
+
+    if (sortType === "top") {
+      sorted.sort((a, b) => b.upvotes - a.upvotes);
+    } else {
+      sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+
+    return sorted;
+  };
+
+  return (
+    <div>
+      <button
+        data-testid="most-upvoted-link"
+        onClick={() => setSortType("top")}
+      >
+        Most Upvoted
+      </button>
+
+      <button
+        data-testid="most-recent-link"
+        onClick={() => setSortType("newest")}
+      >
+        Most Recent
+      </button>
+
+      <Articles articles={getSortedArticles()} />
+    </div>
+  );
+}
+
+export default App;
