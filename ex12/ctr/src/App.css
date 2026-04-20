@@ -2,19 +2,22 @@
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
+
+  color: #111;            /* ← dark text */
+  background: #e5e7eb;    /* subtle grey background */
+
   border: 2px solid transparent;
   transition: border-color 0.3s;
   margin-bottom: 24px;
+}
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+.counter:hover {
+  border-color: #6366f1;
+}
+
+.counter:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
 }
 
 .hero {

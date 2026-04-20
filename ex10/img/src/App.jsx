@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
+import img1 from "./assets/img1.jpg";
+import img2 from "./assets/img2.jfif";
+import img3 from "./assets/img3.jfif";
+import img4 from "./assets/img4.jfif";
 
 const images = [
-  { name: "Mountain Sunrise",  url: "https://picsum.photos/id/1018/900/500", tag: "Nature" },
-  { name: "Misty Forest",      url: "https://picsum.photos/id/1015/900/500", tag: "Forest" },
-  { name: "Ocean View",        url: "https://picsum.photos/id/1016/900/500", tag: "Sea" },
-  { name: "Desert Road",       url: "https://picsum.photos/id/1020/900/500", tag: "Travel" },
+  { name: "Mountain Sunrise", url: img1 },
+  { name: "Misty Forest",      url: img2 },
+  { name: "Ocean View",        url: img3 },
+  { name: "Desert Road",       url: img4 },
 ];
 
 export default function App() {

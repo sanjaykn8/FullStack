@@ -1,13 +1,34 @@
-class Employee {
+abstract class Employee {
+  constructor(public name: string) {}
+  abstract calculatePay(): number;
+}
+
+class FullTimeEmployee extends Employee {
   constructor(
-    public name: string,
+    name: string,
     public basic: number,
     public allowance: number,
     public deduction: number
-  ) {}
+  ) {
+    super(name);
+  }
 
   calculatePay(): number {
     return this.basic + this.allowance - this.deduction;
+  }
+}
+
+class PartTimeEmployee extends Employee {
+  constructor(
+    name: string,
+    public hours: number,
+    public rate: number
+  ) {
+    super(name);
+  }
+
+  calculatePay(): number {
+    return this.hours * this.rate;
   }
 }
 
@@ -40,72 +61,125 @@ interface Book {
 const books: Book[] = [];
 const stack = new Stack<string>();
 
-document.body.style.fontFamily = "Arial, sans-serif";
 document.body.innerHTML = `
-  <div style="max-width: 1000px; margin: 20px auto; padding: 20px;">
-    <h1>TypeScript Exercises</h1>
+<div style="font-family:Segoe UI, Arial; background:#f4f6f9; min-height:100vh; padding:30px;">
+  
+  <h1 style="text-align:center; margin-bottom:30px;">TypeScript Dashboard</h1>
 
-    <div style="display: grid; gap: 20px;">
-      <section style="border: 1px solid #ccc; padding: 16px; border-radius: 8px;">
-        <h2>1) Employee Pay Calculator</h2>
-        <form id="payForm" style="display: grid; gap: 10px; max-width: 360px;">
-          <input id="empName" type="text" placeholder="Employee Name" />
-          <input id="basic" type="number" placeholder="Basic Pay" />
-          <input id="allowance" type="number" placeholder="Allowance" />
-          <input id="deduction" type="number" placeholder="Deductions" />
-          <button type="submit">Calculate Pay</button>
-        </form>
-        <p id="payResult" style="font-weight: bold; margin-top: 10px;"></p>
-      </section>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:20px;">
 
-      <section style="border: 1px solid #ccc; padding: 16px; border-radius: 8px;">
-        <h2>2) Generic Stack</h2>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <input id="stackInput" type="text" placeholder="Enter item" />
-          <button id="pushBtn">Push</button>
-          <button id="popBtn">Pop</button>
+    <!-- Employee -->
+    <div style="background:white; padding:20px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1)">
+      <h2 style="margin-bottom:10px;">Employee Pay</h2>
+
+      <form id="payForm" style="display:flex; flex-direction:column; gap:10px;">
+        <input id="empName" placeholder="Name" style="padding:8px;border-radius:6px;border:1px solid #ccc"/>
+
+        <select id="empType" style="padding:8px;border-radius:6px;">
+          <option value="full">Full Time</option>
+          <option value="part">Part Time</option>
+        </select>
+
+        <div id="fullFields" style="display:flex; flex-direction:column; gap:8px;">
+          <input id="basic" placeholder="Basic" style="padding:8px"/>
+          <input id="allowance" placeholder="Allowance" style="padding:8px"/>
+          <input id="deduction" placeholder="Deduction" style="padding:8px"/>
         </div>
-        <p id="stackMsg" style="margin-top: 10px;"></p>
-        <ul id="stackList"></ul>
-      </section>
 
-      <section style="border: 1px solid #ccc; padding: 16px; border-radius: 8px;">
-        <h2>3) Book Manager</h2>
-        <form id="bookForm" style="display: grid; gap: 10px; max-width: 360px;">
-          <input id="title" type="text" placeholder="Title" />
-          <input id="author" type="text" placeholder="Author" />
-          <input id="publisher" type="text" placeholder="Publisher" />
-          <button type="submit">Add Book</button>
-        </form>
-        <h3>Books Sorted by Author</h3>
-        <ul id="bookList"></ul>
-      </section>
+        <div id="partFields" style="display:none; flex-direction:column; gap:8px;">
+          <input id="hours" placeholder="Hours" style="padding:8px"/>
+          <input id="rate" placeholder="Rate" style="padding:8px"/>
+        </div>
+
+        <button type="submit" style="padding:10px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer">
+          Calculate
+        </button>
+      </form>
+
+      <p id="payResult" style="margin-top:10px; font-weight:bold;"></p>
     </div>
+
+    <!-- Stack -->
+    <div style="background:white; padding:20px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1)">
+      <h2>Stack</h2>
+
+      <div style="display:flex; gap:8px; margin-bottom:10px;">
+        <input id="stackInput" placeholder="Enter item" style="flex:1;padding:8px"/>
+        <button id="pushBtn" style="padding:8px;background:#16a34a;color:white;border:none;border-radius:6px">Push</button>
+        <button id="popBtn" style="padding:8px;background:#dc2626;color:white;border:none;border-radius:6px">Pop</button>
+      </div>
+
+      <p id="stackMsg"></p>
+      <ul id="stackList" style="margin-top:10px; padding-left:20px;"></ul>
+    </div>
+
+    <!-- Books -->
+    <div style="background:white; padding:20px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1)">
+      <h2>Books</h2>
+
+      <form id="bookForm" style="display:flex; flex-direction:column; gap:8px;">
+        <input id="title" placeholder="Title" style="padding:8px"/>
+        <input id="author" placeholder="Author" style="padding:8px"/>
+        <input id="publisher" placeholder="Publisher" style="padding:8px"/>
+
+        <button style="padding:10px;background:#7c3aed;color:white;border:none;border-radius:6px">
+          Add Book
+        </button>
+      </form>
+
+      <ul id="bookList" style="margin-top:10px; padding-left:20px;"></ul>
+    </div>
+
   </div>
+</div>
 `;
 
-function qs<T extends HTMLElement>(selector: string): T {
-  const el = document.querySelector(selector);
-  if (!el) throw new Error(`Missing element: ${selector}`);
-  return el as T;
+function qs<T extends HTMLElement>(s: string): T {
+  return document.querySelector(s) as T;
 }
+
 
 const payForm = qs<HTMLFormElement>("#payForm");
 const payResult = qs<HTMLParagraphElement>("#payResult");
+const empType = qs<HTMLSelectElement>("#empType");
+const fullFields = qs<HTMLDivElement>("#fullFields");
+const partFields = qs<HTMLDivElement>("#partFields");
+
+empType.addEventListener("change", () => {
+  if (empType.value === "full") {
+    fullFields.style.display = "block";
+    partFields.style.display = "none";
+  } else {
+    fullFields.style.display = "none";
+    partFields.style.display = "block";
+  }
+});
 
 payForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const name = qs<HTMLInputElement>("#empName").value.trim();
-  const basic = Number(qs<HTMLInputElement>("#basic").value || 0);
-  const allowance = Number(qs<HTMLInputElement>("#allowance").value || 0);
-  const deduction = Number(qs<HTMLInputElement>("#deduction").value || 0);
+  const name = qs<HTMLInputElement>("#empName").value;
+  let emp: Employee;
 
-  const emp = new Employee(name, basic, allowance, deduction);
-  const netPay = emp.calculatePay();
+  if (empType.value === "full") {
+    emp = new FullTimeEmployee(
+      name,
+      Number(qs<HTMLInputElement>("#basic").value || 0),
+      Number(qs<HTMLInputElement>("#allowance").value || 0),
+      Number(qs<HTMLInputElement>("#deduction").value || 0)
+    );
+  } else {
+    emp = new PartTimeEmployee(
+      name,
+      Number(qs<HTMLInputElement>("#hours").value || 0),
+      Number(qs<HTMLInputElement>("#rate").value || 0)
+    );
+  }
 
-  payResult.textContent = `${emp.name}'s Net Pay = ${netPay}`;
+  payResult.textContent = `Pay = ${emp.calculatePay()}`;
 });
+
+/* ================= STACK ================= */
 
 const stackInput = qs<HTMLInputElement>("#stackInput");
 const pushBtn = qs<HTMLButtonElement>("#pushBtn");
@@ -113,77 +187,46 @@ const popBtn = qs<HTMLButtonElement>("#popBtn");
 const stackMsg = qs<HTMLParagraphElement>("#stackMsg");
 const stackList = qs<HTMLUListElement>("#stackList");
 
-function renderStack(): void {
-  if (stack.isEmpty()) {
-    stackList.innerHTML = "<li>Stack is empty</li>";
-    return;
-  }
-
-  stackList.innerHTML = stack.getItems()
-    .map((item, index) => `<li>${index + 1}. ${item}</li>`)
-    .join("");
+function renderStack() {
+  stackList.innerHTML = stack.isEmpty()
+    ? "<li>Empty</li>"
+    : stack.getItems().map(i => `<li>${i}</li>`).join("");
 }
 
-pushBtn.addEventListener("click", () => {
-  const value = stackInput.value.trim();
-  if (!value) return;
-
-  stack.push(value);
+pushBtn.onclick = () => {
+  stack.push(stackInput.value);
   stackInput.value = "";
-  stackMsg.textContent = `Pushed: ${value}`;
   renderStack();
-});
+};
 
-popBtn.addEventListener("click", () => {
-  const popped = stack.pop();
-  if (popped === undefined) {
-    stackMsg.textContent = "Stack is empty";
-  } else {
-    stackMsg.textContent = `Popped: ${popped}`;
-  }
+popBtn.onclick = () => {
+  stackMsg.textContent = `Popped: ${stack.pop()}`;
   renderStack();
-});
+};
+
+/* ================= BOOK ================= */
 
 const bookForm = qs<HTMLFormElement>("#bookForm");
 const bookList = qs<HTMLUListElement>("#bookList");
 
-function renderBooks(): void {
-  const sorted = [...books].sort((a, b) =>
-    a.author.localeCompare(b.author)
-  );
-
-  if (sorted.length === 0) {
-    bookList.innerHTML = "<li>No books added</li>";
-    return;
-  }
-
-  bookList.innerHTML = sorted
-    .map(
-      (book) => `
-      <li>
-        <b>${book.title}</b> — ${book.author} — ${book.publisher}
-      </li>`
-    )
+function renderBooks() {
+  bookList.innerHTML = books
+    .sort((a, b) => a.author.localeCompare(b.author))
+    .map(b => `<li>${b.title} - ${b.author}</li>`)
     .join("");
 }
 
-bookForm.addEventListener("submit", (e) => {
+bookForm.onsubmit = (e) => {
   e.preventDefault();
 
-  const title = qs<HTMLInputElement>("#title").value.trim();
-  const author = qs<HTMLInputElement>("#author").value.trim();
-  const publisher = qs<HTMLInputElement>("#publisher").value.trim();
-
-  if (!title || !author || !publisher) return;
-
-  books.push({ title, author, publisher });
-
-  qs<HTMLInputElement>("#title").value = "";
-  qs<HTMLInputElement>("#author").value = "";
-  qs<HTMLInputElement>("#publisher").value = "";
+  books.push({
+    title: qs<HTMLInputElement>("#title").value,
+    author: qs<HTMLInputElement>("#author").value,
+    publisher: qs<HTMLInputElement>("#publisher").value,
+  });
 
   renderBooks();
-});
+};
 
 renderStack();
 renderBooks();

@@ -1,4 +1,9 @@
 import { useState } from "react";
+import b1 from "./assets/b1.jfif";
+import b2 from "./assets/b2.jfif";
+import b3 from "./assets/b3.jfif";
+import b4 from "./assets/b4.jfif";
+import b5 from "./assets/b5.jpg";
 
 const books = [
   {
@@ -6,35 +11,35 @@ const books = [
     author: "Paulo Coelho",
     year: 1988,
     publisher: "HarperOne",
-    image: "https://picsum.photos/id/1005/200/280",
+    image: b1,
   },
   {
     title: "Clean Code",
     author: "Robert C. Martin",
     year: 2008,
     publisher: "Prentice Hall",
-    image: "https://picsum.photos/id/1011/200/280",
+    image: b2,
   },
   {
     title: "Atomic Habits",
     author: "James Clear",
     year: 2018,
     publisher: "Avery",
-    image: "https://picsum.photos/id/1025/200/280",
+    image: b3,
   },
   {
     title: "Deep Work",
     author: "Cal Newport",
     year: 2016,
     publisher: "Grand Central",
-    image: "https://picsum.photos/id/1035/200/280",
+    image: b4,
   },
   {
     title: "You Don't Know JS",
     author: "Kyle Simpson",
     year: 2015,
     publisher: "O'Reilly Media",
-    image: "https://picsum.photos/id/1043/200/280",
+    image: b5,
   },
 ];
 
