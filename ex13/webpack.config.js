@@ -8,12 +8,12 @@ export default {
   },
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve("dist"),
-    clean: true,
+    path: path.resolve("./dist"),
+    publicPath: "",
   },
   devServer: {
-    static: "./src",     // ✅ serve folder
-    open: ["login.html"], // ✅ open this page
+    static: "./src",
+    open: ["login.html"],
   },
   plugins: [
     new HtmlWebpackPlugin({
